@@ -1,0 +1,92 @@
+well 
+ich will nicht um den heißen Brei reden
+
+struct in c 
+
+enum in c
+
+enum in struct in c 
+
+whats better? 
+
+ip on fleak
+ip v4 
+ip v6 stuff
+request
+
+Optional<T> None<T> Some<T> // optional value handling 
+
+match statement //pattern matching 
+if let 
+
+funktion in enums verpackt
+
+type safety z.B. gegenüber c oder ts
+
+
+
+danke
+
+
+----------
+structs definieren und instanziieren
+
+Kurznotation der Feld-Initialisierung verwenden
+
+Instanzen aus anderen Instanzen erzeugen mit der Strukturaktualisierungssyntax
+
+Verwenden von Tupel-Strukturen ohne benannte Felder um verschiedene Typen zu erzeugen
+
+Einheitstyp-ähnliche Strukturen ohne Felder
+
+
+
+Beispielprogramm mit Strukturen (structs)
+
+Refaktorierung mit Tupeln
+
+Refaktorierung mit Strukturen: Mehr Semantik
+
+Hilfreiche Funktionalität mit abgeleiteten Merkmalen (derived traits)
+
+
+Methodensyntax
+Definieren von Methoden
+
+Methoden mit mehreren Parametern
+
+Assoziierte Funktionen
+
+Mehrere impl-Blöcke
+
+
+
+Aufzählungen (enums) und Musterabgleich (pattern matching)
+
+Eine Aufzählung (enum) definieren
+
+Die Aufzählung Option und ihre Vorteile gegenüber Nullwerten
+
+
+Das Kontrollflusskonstrukt match
+
+Muster, die Werte binden
+
+Abgleich mit Option<T>
+
+Abgleiche sind vollständig
+
+Auffangmuster und der Platzhalter _
+
+
+
+
+Prägnanter Kontrollfluss mit if let und let else
+
+Auf dem „richtigen Weg“ bleiben mit let...else
+
+----------
+
+playstore
+
+
