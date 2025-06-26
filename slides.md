@@ -116,8 +116,8 @@ struct User {
 }
 
 fn main() {
-    user1 = build_user(String::from("foo@barMail.com", String::from("foobar");
-    user2 = User { email: String::from("baz@pow.com", ..user1 } //übernehme Attribute user1 
+    let user1 = build_user(String::from("foo@barMail.com", String::from("foobar");
+    let user2 = User { email: String::from("baz@pow.com", ..user1 } //übernehme Attribute user1 
     //-> Wiederbenutzung von Daten <=> Copy Constructor
 }
 //ähnlich zum Konstruktor, um Objekt zu bauen
@@ -134,41 +134,57 @@ fn build_user(email: String, username: String) -> User {
 
 <!--
 übernehme Attribute mit ..
+mut keyword und Zugriff auf keys
 -->
 
 ---
 level: 2
 ---
 
-# Rust - Zugriff auf Attribute von Strukturen (public und private)
+# Rust - Zugriff auf Attributen von Strukturen (pub)
 
 ````md magic-move
 ```rs
-    User { //macht struct public
-        username: String,
+    pub struct User { 
+        username: String, //sichtbar auch in anderen Modulen
         age: u8,
     }
     fn main() {
-        let user1 = User { username: String::from("foo"), age: 80 }
-        user1.u8 //works
+        let user1 = User { username: String::from("foo"), age: 80 };
+        let ageOfUser1 = user1.age; //works
     }
 
 ```
 ```rs
-    User { //macht struct public
-        username: String, //in anderen Modulen nicht sichtbar.
+    struct User { 
+        username: String, //in anderen Modulen nicht sichtbar. //also private
         pub age: u8, //in anderen Modulen sichtbar!
     }
     fn main() {
-        let user1 = User { username: String::from("foo"), age: 80 }
-        user1.u8 //works
+        let user1 = User { username: String::from("foo"), age: 80 };
+    }
+
+```
+```rs
+    struct User { 
+        username: String, //in anderen Modulen nicht sichtbar. //also private
+        pub age: u8, //in anderen Modulen sichtbar!
+    }
+    //alternative Getter 
+    impl User {
+        pub fn getUserName(&self) -> String {
+         self.username.clone() //clone, sonst fail. Ownership.
+        }
+    }
+    fn main() {
+        let user1 = User { username: String::from("foo"), age: 80 };
+        user1.getUserName(); 
     }
 
 ```
 ````
 
 <!--
-public
 -->
 
 ---
@@ -275,7 +291,7 @@ fn main() {
 level: 2
 ---
 
-# Rust - Übergabe von Ownership der Strukturen (Zuweisung) 
+# Rust - Übergabe von Ownership der Strukturen
 
 
 ````md magic-move
@@ -355,7 +371,60 @@ fn main() {
 level: 2
 ---
 
-# Rust - *Tupel*-Strukturen *Tuple-Structs*
+# Rust - Manipulation von Strukturen
+
+````md magic-move
+```rs 
+struct Person {
+    name: String,
+    age: u8,
+}
+impl Person {
+    fn greet(&self) {
+        println!("no way you found me!")
+    }
+}
+
+
+fn main() {
+    let p = Person { name: String::from("Kelvin Klein"), age: 80};
+    let mut p1 = p; //ist jetzt mutable 
+    p1.name = String::from("hello"); //direkte Zuweisung
+}
+```
+
+
+```rs 
+//setter
+struct Person {
+    name: String,
+    age: u8,
+}
+impl Person {
+    fn greet(&self) {
+        println!("greet!")
+    }
+    fn set_name(&mut self, name: String) {
+        self.name = name;
+    }
+}
+
+
+fn main() {
+    let p = Person { name: String::from("Kelvin Klein"), age: 80};
+    let mut p1 = p; //setzt mutable struct voraus
+    p1.set_name(String::from("John Ceyna"));
+
+}
+```
+
+````
+
+---
+level: 2
+---
+
+# Rust - *Tupel*-Strukturen (*Tuple-Structs*)
 
 eine Art *named* Tupel, jedoch auf den Typ reduziert
 ```rs
@@ -392,7 +461,7 @@ level: 2
 struct UnitStruct;
 
 // Define a trait with a method `describe`
-trait Describable {
+trait Describable { //erlaubt es Code zu teilen
     fn describe(&self) -> String;
 }
 
@@ -413,11 +482,43 @@ level: 1
 
 # Rust - Enums (in C)
 
-```c 
-enum Zahl = { EINS=1, ZWEI=2, DREI=3 }; //nicht die funktionalste Form für Enums 
-```
- 
 
+```c 
+/*c*/ enum Zahl = { EINS=1, ZWEI=2, DREI=3 }; //nicht die funktionalste Form für Enums 
+```
+
+<div v-click>
+
+```rs 
+//rust 
+struct Material<W> {
+    art: W,
+    scoreBeschaffenheit: u8, //score
+}
+enum Kosten {
+    HOCH, 
+    MITTEL,
+    NIEDRIG
+}
+enum Haus<T,U> { //kann mit Typebounds erweitert werden
+    .. ..
+    Dach(U, T),
+}
+fn main() {
+    let hausDach = Haus::Dach(
+        Kosten::HOCH, 
+        Haus {
+            art: Metall::Gold,
+            scoreBeschaffenheit: 200,            
+        }
+    ); 
+}
+
+^^ auf den ersten Blick mehr Funktionalität 
+
+```
+
+</div>
 
 ---
 layout: image-right
@@ -762,7 +863,7 @@ level: 2
 <tr>
 <td style="width: 400px;">
 ````md magic-move {lines: true}
-```ts {all|1|2|3|4|11-13|14-16|all}
+```ts {all|3|4|5|6|11-13|14-16|all}
 //typescript
 
 enum Color {
@@ -984,3 +1085,10 @@ layout: center
 ---
 
 # Fragen?
+
+--- 
+
+# Quellen
+- [][https://doc.rust-lang.org/book/]
+- [][https://dev.to/ssivakumar/working-with-struct-in-rust-59h9]
+
