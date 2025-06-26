@@ -5,7 +5,7 @@ theme: seriph
 # like them? see https://unsplash.com/collections/94734566/slidev
 background: ./components/blatt7.webp
 # some information about your slides (markdown enabled)
-title: Rust Structs \& Enums 
+title: Rust Structs \& Enums
 info: |
   ## Slidev Starter Template
   Presentation slides for developers.
@@ -38,6 +38,15 @@ Motto: Kombinieren und Kreuzen!
     <carbon:logo-github />
   </a>
 </div>
+
+<!--
+ich darf sie herzlich begrüßen zu meiner Präsentation Rust: Strukturen, Enums und Pattern Matching
+                                           
+das Thema ist recht umfangreich, ich hoffe möglichst alles nötige abgedeckt zu haben
+ 
+los geht's
+-->
+
 ---
 
 # Übersicht
@@ -59,13 +68,29 @@ transition: slide-up
 - Instanziierung von Klassen -\> eröffnet OOP
 - Jedoch keinen expliziten Konstruktor!
 
+<!--
+rust ist funktionale angehaucht 
+
+class keyword gibt es nicht
+
+eine Möglichkeit Klassen zu simulieren sind structs
+-->
+
 ---
 level: 2
 ---
 
-# Rust - Strukturen - Initialisierung
+# Rust - Strukturen - Definition & Initialisierung
 
 ````md magic-move
+```rs
+struct User {
+    username: String,
+    email: String,
+    age: u32,
+    active: bool
+}
+```
 ```rs
 struct User {
     username: String,
@@ -134,7 +159,18 @@ fn build_user(email: String, username: String) -> User {
 
 <!--
 übernehme Attribute mit ..
-mut keyword und Zugriff auf keys
+
+mut keyword egal und Zugriff auf keys  
+
+möglich auch structs in structs
+
+JSON Art und Weise ähnlich
+
+bau Art Funktion zum initialisieren
+
+..user1 übernehme Attribute (Copy Constructor)
+
+Später mehr!
 -->
 
 ---
@@ -185,6 +221,14 @@ level: 2
 ````
 
 <!--
+Sichtbarkeit in anderen Modulen
+
+pub struct
+
+pub keyword in der Struct -> sichtbar in anderen Modulen
+
+definieren eines getter 
+meinetwegen mit pub key
 -->
 
 ---
@@ -286,6 +330,13 @@ fn main() {
 
 ````
 
+<!--
+definiere Methode area und can_hold mit impl keyword
+
+self referenziert die Instanz/Objekt
+
+JSON
+-->
 
 ---
 level: 2
@@ -367,6 +418,18 @@ fn main() {
 
 ````
 
+<!--
+Beispiel Ownership
+
+Beispiel Ownership structs implizit
+
+Beispiel Ownership fail
+
+Beispiel Ownership ok
+
+Was glaubt die Audience?
+-->
+
 ---
 level: 2
 ---
@@ -420,6 +483,14 @@ fn main() {
 
 ````
 
+<!--
+direkte Zuweisung durch mutable
+
+mut auch für setter nötig!
+
+geht noch komplizierter führt zu weit
+-->
+
 ---
 level: 2
 ---
@@ -449,6 +520,15 @@ fn main() {
 - dienen der Unterscheidung im Code - erhöht Übersicht
 - können Methoden haben
 
+<!--
+Tuple struct sind eine Kategorie von Tupel
+gibt dem Tuple einen Typ
+unabhängig von Variablen Namen
+
+<=> typedef tuple xyz als XYZ in c
+
+Zugriff über Indizes
+-->
 
 ---
 level: 2
@@ -474,6 +554,11 @@ impl Describable for UnitStruct {
 ```
 - eine Art abstrakte Klasse 
 - bzw. eine Namespace `UnitStruct`
+
+<!--
+Gruppe von Funktionen 
+eine Art abstrakte Klasse im funktionalen Slang
+-->
 
 ---
 transition: slide-up
@@ -519,6 +604,12 @@ fn main() {
 ```
 
 </div>
+
+<!--
+enum c mäh!
+
+enums rust lul
+-->
 
 ---
 layout: image-right
@@ -571,6 +662,10 @@ fn main() {
 }
 ```
 
+<!--
+enums in structs
+-->
+
 ---
 layout: image-right
 image: ./components/blatt3.webp
@@ -598,6 +693,10 @@ fn main() {
             String::from("127.0.0.1")); 
 }
 ```
+
+<!--
+enum übernehmen Werte
+-->
 
 ---
 level: 2
@@ -673,6 +772,20 @@ fn main() {
 
 ````
 
+<!--
+das geht noch komplizierter und praktischer
+
+ip Adresse
+
+Haus aus Stelzen mit 2x2 Komponenten
+
+
+
+Dach besteht aus Kosten, und Material
+-> stark zum Modellieren
+
+kann mit Typebounds erweitert werden
+-->
 
 ---
 level: 2
@@ -706,6 +819,14 @@ fn main() {
 }
 ```
 
+<!--
+enums können Methoden implementieren
+
+mit match und if let
+
+-> was das ist sehen wir jetzt
+-->
+
 ---
 transition: slide-up
 level: 2
@@ -716,6 +837,7 @@ Null gibt es in Rust nicht!
 > demnach wird Option\<T\> eingeführt (mit T beliebiger Typ) Option\<T\> ist standardgemäß mitdabei
 
 ````md magic-move
+
 
 ```rs 
 //folgende Beispiel-Implementierung.
@@ -728,12 +850,11 @@ impl Option<T> {
 }
 
 fn main() {
-    let x = None; 
-    let mut y = Some(7); //Option<i64>
-    y = x; //y is Null in that sense..
-    println!("Got value {}", y.unwrap_or(1)); //ok! --> prints zero
-}
+    let x: i8 = 5; 
+    let y: Option<i8> = Some(5); 
 
+    let sum = x+y;
+}
 ```
 
 ```rs 
@@ -750,7 +871,7 @@ fn main() {
     let x: i8 = 5; 
     let y: Option<i8> = Some(5); 
 
-    let sum = x+y //fail.
+    let sum = x+y; //fail.
 }
 ```
 ```rs 
@@ -772,7 +893,39 @@ fn main() {
 
 }
 ```
+
+```rs 
+//folgende Beispiel-Implementierung.
+enum Option<T> {
+    None,
+    Some(T)
+}
+impl Option<T> {
+    pub fn get .... 
+}
+
+fn main() {
+    let x = None; 
+    let mut y = Some(7); //Option<i64>
+    y = x; //y is Null in that sense..
+    println!("Got value {}", y.unwrap_or(1)); //ok! --> prints zero
+}
+
+```
 ````
+
+<!--
+Option als Typ mit Rückgabe oder nicht
+ersetzt Null mit None
+ähnlich wie in Python
+
+was denkt die Audience? klappt das? 
+
+
+nötig wird unwrap
+
+Option hat noch mehr Funktionalitäten
+-->
 
 ---
 level: 1
@@ -851,6 +1004,16 @@ fn plus_one(x: Option<i32>) -> Option<String> {
 
 ```
 ````
+
+<!--
+Matching
+
+Matching mit Value Extraction
+
+Matching mit Option<T>
+
+underscore Notation
+-->
 
 ---
 level: 2
@@ -1015,6 +1178,11 @@ fn print_color(color: Color) {
 </tr>
 </table>
 
+<!--
+exhaustiveness bietet Vorteile
+
+füge Yellow hinzu
+-->
 
 ---
 level: 2
@@ -1080,15 +1248,22 @@ append(&mut arr); //fail.
 </tr>
 </table>
 
+<!--
+unten rechts ist eine vec aus string
+was allerdings nicht übereinstimmt mit wie Vec<Item> definiert wurde
+
+
+jedoch links wie ein Array aus Strings akzeptiert
+-->
+
 ---
 layout: center
 ---
 
 # Fragen?
 
---- 
+---
 
 # Quellen
 - [][https://doc.rust-lang.org/book/]
 - [][https://dev.to/ssivakumar/working-with-struct-in-rust-59h9]
-

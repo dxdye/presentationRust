@@ -98,3 +98,6 @@ das Thema ist recht umfangreich, ich hoffe möglichst alles nötige abgedeckt zu
 
 los geht's
 
+rust ist ein bisschen funktionaler angehaucht 
+class keyword gibt es nicht
+
