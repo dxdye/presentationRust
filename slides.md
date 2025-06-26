@@ -825,6 +825,9 @@ enums können Methoden implementieren
 mit match und if let
 
 -> was das ist sehen wir jetzt
+
+
+für Scope gilt dasselbe wie für andere
 -->
 
 ---
@@ -1182,6 +1185,13 @@ fn print_color(color: Color) {
 exhaustiveness bietet Vorteile
 
 füge Yellow hinzu
+
+
+
+
+stattdessen if let Syntax
+
+if let mit Value extraction it's a light blue
 -->
 
 ---
