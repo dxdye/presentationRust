@@ -90,3 +90,11 @@ Auf dem „richtigen Weg“ bleiben mit let...else
 playstore
 
 
+
+
+ich darf sie herzlich grüßen zu meiner Präsentation Rust: Strukturen, Enums und Pattern Matching
+
+das Thema ist recht umfangreich, ich hoffe möglichst alles nötige abgedeckt zu haben
+
+los geht's
+
