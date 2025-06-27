@@ -40,9 +40,15 @@ Motto: Kombinieren und Kreuzen!
 </div>
 
 <!--
+Konzentration alles abverlangt in dieser Hitze
 ich darf sie herzlich begrüßen zu meiner Präsentation Rust: Strukturen, Enums und Pattern Matching
                                            
+                                           oberflächlich anschneiden
+
 das Thema ist recht umfangreich, ich hoffe möglichst alles nötige abgedeckt zu haben
+große Hitze unkonzentriert
+ich hoffe, dass ich alles zu meinen Beispielen Ausgedachtes replizieren kann
+bin auch recht nervös
  
 los geht's
 -->
@@ -92,6 +98,20 @@ struct User {
 }
 ```
 ```rs
+struct Address {
+    street: String,
+    plz: u32
+}
+struct User {
+    username: String,
+    email: String,
+    age: u32,
+    active: bool,
+    address: Address
+}
+
+```
+```rs
 struct User {
     username: String,
     email: String,
@@ -119,7 +139,7 @@ struct User {
 }
 
 fn main() {
-    user1 = build_user(String::from("foo@barMail.com", String::from("foobar");
+    user1 = build_user(String::from("foo@barMail.com"), String::from("foobar");
 }
 //ähnlich zum Konstruktor, um Objekt zu bauen
 fn build_user(email: String, username: String) -> User {
@@ -542,7 +562,7 @@ struct UnitStruct;
 
 // Define a trait with a method `describe`
 trait Describable { //erlaubt es Code zu teilen
-    fn describe(&self) -> String;
+    fn describe(&self) -> String; //deklariere 'Merkmal'/trait
 }
 
 // Implement the Describable trait for UnitStruct
